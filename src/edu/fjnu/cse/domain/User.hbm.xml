@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="edu.fjnu.cse.domain.User" table="t_user">
+		<id name="userId" column="user_id">
+			<generator class="increment"></generator>
+		</id>
+		<property name="userName" column="user_name" length="15"></property>
+		<property name="password" column="password" length="15"></property>
+		<property name="sex" column="user_sex" length="1"></property>
+		<property name="identify" column="identify"  length="1"></property>
+		<property name="realName" column="real_name" length="10"></property>
+		<property name="birthday" column="birthday" type="date"></property>
+		<property name="email" column="email" length="40"></property>
+		<property name="phone" column="phone" length="15"></property>
+		<property name="address" column="address" length="100"></property>
+		<property name="postCode" column="post_code" length="6"></property>
+		<property name="freezes" column="freezes" length="1"></property>
+		
+		<set name="orderList" table="t_order" inverse="true" cascade="none" fetch="select" lazy="true">
+        	<key>
+        		<column name="user_id" not-null="true"></column>
+        	</key>
+        	<one-to-many class="edu.fjnu.cse.domain.Order"/>
+     	</set>
+	</class>
+</hibernate-mapping>
+

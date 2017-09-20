@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="edu.fjnu.cse.domain.BuyCar" table="t_order_item">
+		<id name="id" column="order_item_id">
+			<generator class="increment"></generator>
+		</id>
+		<property name="goodsId" column="goods_id" length="32"></property>
+		<property name="goodsName" column="goods_name" length="30"></property>
+		<property name="goodsDesc" column="goods_desc" length="255"></property>
+		<property name="goodsCnt" column="goods_cnt" type="integer"></property>
+		<property name="money" column="money" type="double"></property>
+		<property name="goodsPrice" column="goods_price" type="double"></property>
+		
+		<many-to-one name="order" class="edu.fjnu.cse.domain.Order" column="order_id" not-null="true" cascade="none"></many-to-one>
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="edu.fjnu.cse.domain.Goods" table="t_goods">
+		<id name="id" column="goods_id">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="goodsName" column="goods_name" length="30"></property>
+		<property name="goodsPrice" column="goods_price" type="double"></property>
+		<property name="leftCnt" column="goods_cnt" type="integer"></property>
+		<property name="desc" column="goods_desc" length="255"></property>
+		<property name="enough" column="isEnough" length="1"></property>
+		<property name="pic" column="goods_pic" type="binary"></property>
+		
+		<property name="goodsPicName" column="goods_pic_name" length="100"></property>
+		
+		<!-- <property name="parentType" column="goods_parent_type" length="32"></property> -->
+		<many-to-one name="parentType" class="edu.fjnu.cse.domain.GoodsType" column="goods_parent_type" not-null="true" cascade="none" lazy="false"></many-to-one>
+		<many-to-one name="subType" class="edu.fjnu.cse.domain.GoodsType" column="goods_sub_type" not-null="true" lazy="false"></many-to-one>
+	</class>
+</hibernate-mapping>
+

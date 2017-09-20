@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="edu.fjnu.cse.domain.GoodsType" table="t_goods_type">
+		<id name="id" column="goods_type_id">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="goodsTypeName" column="goods_type_name"></property>
+		<property name="active" column="goods_type_active"></property>
+		
+		<many-to-one name="parent" class="edu.fjnu.cse.domain.GoodsType" fetch="join" lazy="false">
+			<column name="goods_type_parentId"></column>
+		</many-to-one>
+		
+		<set name="subGoodsType" inverse="true" fetch="join" lazy="false">
+			<key>
+				<column name="goods_type_parentId"></column>
+			</key>
+			<one-to-many class="edu.fjnu.cse.domain.GoodsType"/>
+		</set>
+		
+		<set name="goodsList" table="t_goods" inverse="true" cascade="none" fetch="select" lazy="true">
+        	<key>
+        		<column name="goods_sub_type" not-null="true"></column>
+        	</key>
+        	<one-to-many class="edu.fjnu.cse.domain.Goods"/>
+     	</set>  
+     	
+	</class>
+</hibernate-mapping>
+
