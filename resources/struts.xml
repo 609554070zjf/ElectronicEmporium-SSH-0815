@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 表单提交编码为utf8 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.action.extension" value="do"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	
+	<package name="base" namespace="/" extends="json-default,struts-default">
+		<interceptors>
+           <interceptor name="authInterceptor" class="edu.fjnu.cse.intercept.AuthenIntercetpor"/>
+           <interceptor-stack name="user">
+              <interceptor-ref name="authInterceptor"/>
+              <interceptor-ref name="defaultStack"/>
+           </interceptor-stack>
+           <interceptor-stack name="guess">
+              <interceptor-ref name="defaultStack"/>
+           </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="user"/>
+        
+        <global-results>
+            <result name="login_page">/index.jsp</result>
+        </global-results> 
+	
+	</package>
+	
+	<package name="login" namespace="/login" extends="struts-default">
+		<action name="login_*" class="edu.fjnu.cse.action.UserAction" method="{1}">
+			<result name="loginSuccess_admin" type="chain">
+				<param name="actionName">admin_loadAllAdmin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="toUserMain" type="chain">
+				<param name="actionName">user_toUserMain</param>
+				<param name="namespace">/user</param>
+			</result>
+			<result name="add_page" type="chain">
+				<param name="actionName">admin_toAdd</param>
+				<param name="namespace">/admin</param>
+			</result>
+			
+			<result name="reg_page">../jsps/user/regUser.jsp</result>
+		</action>
+	</package>
+	
+	<package name="user" namespace="/user" extends="base">
+		<action name="user_*" class="edu.fjnu.cse.action.UserAction" method="{1}">
+			<result name="admin_success" type="redirectAction">user_loadAllAdmin</result>
+			<result name="toUserMain" type="redirectAction">user_toUserMain</result>
+			<result name="loginSuccess_user">../jsps/user/userMain.jsp</result>
+			<result name="info_page_user">../jsps/user/infoUser.jsp</result>
+			<result name="update_page_user">../jsps/user/updateUser.jsp</result>
+			<result name="update_pwd">../jsps/user/updatePwd.jsp</result>
+			
+			<result name="loginSuccess_admin" type="chain">
+				<param name="actionName">admin_loadAllAdmin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			
+			<result name="input">/index.jsp</result>
+			<!-- <interceptor-ref name="guess"></interceptor-ref> -->
+		</action>
+	</package>
+	
+	 <package name="goodsType" extends="base" namespace="/goodsType">
+	 	<action name="goodsType_*" class="goodsTypeAction" method="{1}">
+			<result name="load_page">../jsps/goodsType/loadGoodsType.jsp</result>
+			<result name="add_page">../jsps/goodsType/addGoodsType.jsp</result>
+			<result name="loadAll" type="redirectAction">goodsType_loadAll</result>
+            <result type="json" name="parent_json">
+            	 <param name="excludeNullProperties">true</param>
+                <param name="root">parentJson</param>
+            </result>
+		</action>
+		
+	 </package>
+	 
+	 <package name="goods" extends="base" namespace="/goods">
+	 	<action name="goods_*" class="goodsAction" method="{1}">
+			<result name="load_page">../jsps/goods/loadGoods.jsp</result>
+			<result name="load_page_front">../jsps/frontGoods/loadGoodsFront.jsp</result>
+			<result name="add_page">../jsps/goods/addGoods.jsp</result>
+			<result name="update_page">../jsps/goods/updateGoods.jsp</result>
+			<result name="info_page_front">../jsps/frontGoods/infoGoodsFront.jsp</result>
+			<result name="loadAll" type="redirectAction">goods_loadAll</result>
+			<result name="loadAllFront" type="redirectAction">goods_loadAllFront</result>
+			<result name="buyCarMgr" type="redirectAction">goods_buyCarMgr</result>
+			<result name="buycar_mgr">../jsps/frontGoods/loadBuyCar.jsp</result>
+			<result name="order_page">../jsps/frontGoods/orderPage.jsp</result>
+			<!-- <result name="input" type="redirectAction">goods_loadAll</result> -->
+		</action>
+	 </package>
+	 
+	  <package name="admin" extends="base" namespace="/admin">
+	 	<action name="admin_*" class="userAction" method="{1}">
+			<result name="add_page">../jsps/admin/addAdmin.jsp</result>
+			<result name="load_page">../jsps/admin/loadAdmin.jsp</result>
+			<result name="update_page">../jsps/admin/updateAdmin.jsp</result>
+			<result name="info_page">../jsps/admin/infoAdmin.jsp</result>
+			<result name="loadAllAdmin" type="redirectAction">admin_loadAllAdmin</result>
+			<result name="input">../jsps/admin/addAdmin.jsp</result>
+		</action>
+	 </package>
+	 
+	 <package name="order" extends="base" namespace="/order">
+	 	<action name="order_*" class="orderAction" method="{1}">
+	 		<result name="order_success">../jsps/order/orderSuccess.jsp</result>
+	 		<result name="load_order_page_user">../jsps/order/userOrder.jsp</result>
+	 		<result name="load_order_page_user_admin">../jsps/order/allOrder.jsp</result>
+	 		<result name="load_order_page_all_user">../jsps/order/loadOrderUser.jsp</result>
+	 		<result name="load_order_page_all">../jsps/order/loadOrderAll.jsp</result>
+	 		
+		</action>
+	 </package>
+			
+</struts>
