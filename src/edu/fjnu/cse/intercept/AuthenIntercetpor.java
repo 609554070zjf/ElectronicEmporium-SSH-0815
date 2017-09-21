@@ -12,7 +12,8 @@ import edu.fjnu.cse.domain.User;
 
 /**
  * @author Javon
- * 
+ *  
+ *  用户权限拦截器（登录验证）
  */
 public class AuthenIntercetpor implements Interceptor {
 

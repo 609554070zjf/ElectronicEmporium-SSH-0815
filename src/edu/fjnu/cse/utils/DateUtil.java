@@ -9,14 +9,15 @@ import java.util.Date;
 
 /**
  * @author I
- *	ÈÕÆÚÅĞ¶Ï
+ *	
+ * æ—¥æœŸå·¥å…·ç±»
  */
 public class DateUtil {
 	
 	private final static String PATTERN = "yyyy-MM-dd";
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÊÇÒ»¸öºÏ·¨ÈÕÆÚ 
+	 * åˆ¤æ–­æ˜¯å¦æ˜¯åˆæ³•æ—¥æœŸ 
 	 * @param str
 	 * @return
 	 */
@@ -33,7 +34,7 @@ public class DateUtil {
 	}
 	
 	/**
-	 * ×Ö·û´®×ª³ÉÈÕÆÚ
+	 * å­—ç¬¦ä¸²è½¬æ—¥æœŸ
 	 * patter="yyyy-MM-dd"
 	 * @param str
 	 * @return
@@ -51,7 +52,7 @@ public class DateUtil {
 	}
 	
 	/**
-	 * ÈÕÆÚ×ª»»³É×Ö·û´®
+	 * æ—¥æœŸè½¬å­—ç¬¦ä¸²
 	 * patter="yyyy-MM-dd"
 	 * @param date
 	 * @return

@@ -254,6 +254,11 @@ public class GoodsAction extends ActionSupport implements
 		return "loadAll";
 	}
 	
+	/**
+	 * 去修改页面
+	 * @return
+	 * @throws Exception
+	 */
 	public String toUpdate() throws Exception{
 		goods = goodsService.getGoodsById(goods.getId());
 		GoodsType parentType =  goods.getParentType();
@@ -265,6 +270,11 @@ public class GoodsAction extends ActionSupport implements
 		return "update_page";
 	}
 	
+	/**
+	 * 修改商品信息
+	 * @return
+	 * @throws Exception
+	 */
 	public String update() throws Exception{
 		if(goodsPic == null){
 			System.out.println(goods.getId());
@@ -291,11 +301,21 @@ public class GoodsAction extends ActionSupport implements
 		return "loadAll";
 	}
 	
+	/**
+	 * 删除商品信息
+	 * @return
+	 * @throws Exception
+	 */
 	public String delete() throws Exception{
 		goodsService.deleteGoods(goods.getId());
 		return "loadAll";
 	}
 	
+	/**
+	 * 后台-查询商品列表
+	 * @return
+	 * @throws Exception
+	 */
 	public String loadAll() throws Exception{
 		System.out.println(helper);
 		pb.setPageSize(5);
@@ -303,6 +323,11 @@ public class GoodsAction extends ActionSupport implements
 		return "load_page";
 	}
 	
+	/**
+	 * 前台显示所有商品
+	 * @return
+	 * @throws Exception
+	 */
 	public String loadAllFront() throws Exception{
 //		addBuyCar();
 		System.out.println(helper);
@@ -311,7 +336,11 @@ public class GoodsAction extends ActionSupport implements
 		return "load_page_front";
 	}
 	
-	
+	/**
+	 * 根据商品ID查询图片
+	 * @return
+	 * @throws Exception
+	 */
 	public String loadPicById() throws Exception{
 		byte[] picData = goodsService.loadPicById(goods.getId());
 		
@@ -323,54 +352,96 @@ public class GoodsAction extends ActionSupport implements
 		return null;
 	}
 	
+	/**
+	 * 去前台商品详情页
+	 * @return
+	 * @throws Exception
+	 */
 	public String infoGoodsFront() throws Exception{
 		goods = goodsService.getGoodsById(goods.getId());
 		return "info_page_front";
 	}
 	
+	/**
+	 * 商品页-添加商品到购物车
+	 * @return
+	 * @throws Exception
+	 */
 	public String addInBuyCarToLoadAll() throws Exception{
 		addBuyCar();
 		return "loadAllFront";
 		
 	}
 	
+	/**
+	 * 商品页-从购物车移除商品
+	 * @return
+	 * @throws Exception
+	 */
 	public String removeFromBuyCarToLoadAll() throws Exception{
 		removeBuyCar();
 		return "loadAllFront";
 	}
 	
-	
+	/**
+	 * 购物车管理页-添加商品至购物车
+	 * @return
+	 * @throws Exception
+	 */
 	public String addInBuyCarToMgr() throws Exception{
 		addBuyCar();
 		return "buyCarMgr";
 		
 	}
 	
+	/**
+	 * 购物车管理页-从购物车移除商品
+	 * @return
+	 * @throws Exception
+	 */
 	public String removeFromBuyCarToMgr() throws Exception{
 		removeBuyCar();
 		return "buyCarMgr";
 	}
 	
+	/**
+	 * 去购物车管理页
+	 * @return
+	 * @throws Exception
+	 */
 	public String buyCarMgr() throws Exception{
 		return "buycar_mgr";
 	}
 	
+	/**
+	 * 清空购物车
+	 * @return
+	 * @throws Exception
+	 */
 	public String clearBuyCar() throws Exception{
 		session.remove("buycar");
 		return "buyCarMgr";
 	}
+	
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
 	
-	
+	/**
+	 * 下订单-去订单结算页
+	 * @return
+	 * @throws Exception
+	 */
 	public String toOrder() throws Exception{
 		
 		return "order_page";
 	}
 	
+	/**
+	 * 添加购物车-逻辑业务函数
+	 */
 	public void addBuyCar(){
 		if(goodsId != null){
 			goods = goodsService.getGoodsById(goodsId);
@@ -422,6 +493,9 @@ public class GoodsAction extends ActionSupport implements
 		}
 	}
 	
+	/**
+	 * 从购物车中移除商品-逻辑业务函数
+	 */
 	public void removeBuyCar(){
 		HashSet<BuyCar> buyCarSet = (HashSet<BuyCar>) session.get("buycar");
 		BuyCar buyCar = new BuyCar();
@@ -431,6 +505,11 @@ public class GoodsAction extends ActionSupport implements
 		session.put("buycar", buyCarSet);
 	}
 	
+	/**
+	 * 重命名图片名称-逻辑业务函数
+	 * @param file
+	 * @param newName
+	 */
 	public void reFileName(File file,String newName){
 		file.renameTo(new File(newName));
 	}

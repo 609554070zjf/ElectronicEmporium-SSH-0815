@@ -84,6 +84,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>,
 		return order;
 	}
 
+	/**
+	 * 根据用户Id获取订单列表-个人订单中心
+	 * @return
+	 * @throws Exception
+	 */
 	public String loadOrderByUserId() throws Exception{
 		User user = (User) session.get("user");
 		helper.setUser(user);
@@ -91,6 +96,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>,
 		return "load_order_page_all_user";
 	}
 	
+	/**
+	 * 根据订单Id获取订单信息-订单详情-用户
+	 * @return
+	 * @throws Exception
+	 */
 	public String getOrderByOrderId() throws Exception{
 		User user = (User) session.get("user");
 		helper.setUser(user);
@@ -98,6 +108,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>,
 		return "load_order_page_user";
 	}
 	
+	/**
+	 * 根据订单Id获取订单信息-订单详情-管理员
+	 * @return
+	 * @throws Exception
+	 */
 	public String getOrderByOrderIdAdmin() throws Exception{
 		User user = (User) session.get("user");
 		helper.setUser(user);
@@ -105,12 +120,22 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>,
 		return "load_order_page_user_admin";
 	}
 
+	/**
+	 * 查询所有订单-订单管理-管理员
+	 * @return
+	 * @throws Exception
+	 */
 	public String loadAll() throws Exception {
 		helper.setUser(null);
 		pb = orderService.loadAllByPage(helper, pb);
 		return "load_order_page_all";
 	}
 
+	/**
+	 * 创建订单 
+	 * @return
+	 * @throws Exception
+	 */
 	public String createOrder() throws Exception {
 		System.out.println(order);
 		User user = (User) session.get("user");
